@@ -176,9 +176,11 @@ public class sendmail extends HttpServlet {
                     String username = request.getParameter("STN6L3");
 
                     try {
-
+                        String text = "S8   -WATTANA SAEUNG";
+                        String password = "brl@2024";
+                        
                         if (chkaddon == "addon") {
-                            CAS400.CREATE_USER(username, username);
+                            CAS400.CREATE_USER(username, password, text);
                             UPDATEREQ(USREQNO, username);
                             UPDATESTFLST(ST_CODE, username);
                         }

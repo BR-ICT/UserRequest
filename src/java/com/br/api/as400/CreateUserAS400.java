@@ -36,13 +36,13 @@ import javax.swing.JOptionPane;
 public class CreateUserAS400  {
     
  
-    public static void CREATE_USER(String username, String password) throws Exception {
+    public static void CREATE_USER_(String username, String password, String text) throws Exception {
 
         String HOST = "192.200.9.190";
         String Uname = username;
         String Pword = password;
 
-        String Command = "CRTUSRPRF USRPRF(" + username + ") PASSWORD(" + password + ") GRPPRF(BRDBUSR)";
+        String Command = "CRTUSRPRF USRPRF(" + username + ") PASSWORD(" + password + ") TEXT(" + text + ") GRPPRF(BRDBUSR) ";
 //        String Command = "CHGUSRPRF USRPRF(SITTIS_SEE) TEXT('BRUSRPRF ICT System MGR')";
         AS400 as400 = new AS400(HOST, "MVXSECOFR", "lawson@90");
         System.out.println("Connected !!");
