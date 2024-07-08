@@ -45,7 +45,7 @@
         <script src="assets/select2/select2.min.js"></script>
         <script src="assets/countdowntime/countdowntime.js"></script>
         <script src="assets/main.js"></script>
-        <title>Service Desk</title>
+        <title>User Request</title>
         <link rel="icon" type="image/ico" href="images/user-icon-vector.jpg" />
     </head>
 
@@ -64,7 +64,7 @@
                     <form class="login100-form validate-form" action="Login" method="POST">
                         <img src="images/duck.jpg" class="center" width="180" height="180" alt="duck"/>          
                         <br><br>
-                        <h4 class="text-center" style="color: blue">Service Desk</h4>
+                        <h4 class="text-center" style="color: blue">User Request</h4>
                         <input value="${msg2}" type="text" id="ChangePW" hidden="true">
                         <br>
                         <div class="wrap-input100 validate-input">
@@ -74,19 +74,19 @@
                             <input class="input100" type="password" name="password" id="vPassword" placeholder="Password">
                         </div>
                         <h4 style="color: red;font-size: 16px;font-weight: bold;">${msg}</h4>
-                        <div class="row container col-md-12" style="font-size: 13px; width: 280px;">
-                            <div style="width: 140px;">
+                        <!--<div class="row container col-md-12" style="font-size: 13px; width: 280px;">-->
+                            <!--<div style="width: 140px;">-->
                                 <!--<lable>Change Password</lable>-->       
-                                <a href="http://192.200.9.189:8080/UserRequest/?Destination=RequestUser"><li style="color: blue;"><u>Sign-Up</u></li></a>  
+                                <!--<a href="http://192.200.9.189:8080/UserRequest/?Destination=RequestUser"><li style="color: blue;"><u>Sign-Up</u></li></a>-->  
 <!--                               <a href="http://localhost:8080/UserRequest/?Destination=RequestUser"><li style="color: blue;"><u>Sign-Up</u></li></a>  -->
 
-                            </div>  
-                        </div>
-                        <div class="row container col-md-12" style="font-size: 13px; width: 280px;">
-                            <div style="width: 140px;">
-                                <a href="http://192.200.9.189:8080/UserRequest/?Destination=ChangePW"><li style="color: blue;"><u>Change Password</u></li></a>  
-                            </div>  
-                        </div>
+                            <!--</div>-->  
+                        <!--</div>-->
+                        <!--<div class="row container col-md-12" style="font-size: 13px; width: 280px;">-->
+                            <!--<div style="width: 140px;">-->
+                                <!--<a href="http://192.200.9.189:8080/UserRequest/?Destination=ChangePW"><li style="color: blue;"><u>Change Password</u></li></a>-->  
+                            <!--</div>-->  
+                        <!--</div>-->
                          <div class="row container col-md-12" style="font-size: 13px; width: 280px;">
                             <div style="width: 140px;">
                                 <a href="http://192.200.9.189:8080/UserRequest/?Destination=PResetPW"><li style="color: blue;"><u>Reset Password</u></li></a>  

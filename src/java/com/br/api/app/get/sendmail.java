@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.codehaus.jettison.json.JSONObject;
+import java.time.Year;
 
 /**
  *
@@ -90,6 +91,7 @@ public class sendmail extends HttpServlet {
         String ST_CODE = request.getParameter("empcode");
         String reqno = request.getParameter("reqno");
         String chkaddon = request.getParameter("creuser");
+//        String chkaddon2 = request.getParameter("CheckboxNew");
 //        String test2 = request.getParameter("test2");
 //        String isitAppauthorize = request.getParameter("AppAuthorize");
 //        String isitReportauthorize = request.getParameter("ReportAuthorize");
@@ -174,12 +176,18 @@ public class sendmail extends HttpServlet {
                     sm.Sendmail_User(EmailUser, LinkAcknow, SubjectEmail, DATENOW, USREQNO, USCREBY, USLINE);
                     CreateUserAS400 CAS400 = new CreateUserAS400();
                     String username = request.getParameter("STN6L3");
-
+                    String costcenter = request.getParameter("costcenter");
+                    String costcenter5letter = padStringToFive(costcenter);
+                    String firstname = request.getParameter("name");
+                    String lastname = request.getParameter("lastname");
+                    String fullname = firstname.trim() + " " + lastname.trim();
+                    int currentYear = Year.now().getValue();
+                    String CurrentYearStr = Integer.toString(currentYear);
                     try {
-                        String text = "S8   -WATTANA SAEUNG";
-                        String password = "brl@2024";
-                        
-                        if (chkaddon == "addon") {
+                        String text = costcenter5letter + "-" + fullname;
+                        String password = "brl@" + CurrentYearStr;
+
+                        if ("addon".equals(chkaddon)) {
                             CAS400.CREATE_USER(username, password, text);
                             UPDATEREQ(USREQNO, username);
                             UPDATESTFLST(ST_CODE, username);
@@ -288,6 +296,17 @@ public class sendmail extends HttpServlet {
 
         }
         return null;
+    }
+
+    public static String padStringToFive(String str) {
+        if (str.length() >= 5) {
+            return str;
+        }
+        StringBuilder sb = new StringBuilder(str);
+        while (sb.length() < 5) {
+            sb.append(' ');
+        }
+        return sb.toString();
     }
 
 //    private static void UpdateAcknowledge(String USREQNO, String USLINE, String Datenow, String USCREBY) {
@@ -440,7 +459,7 @@ public class sendmail extends HttpServlet {
             JSONObject mJsonObj = new JSONObject();
             Connection conn = ConnectDB2.ConnectionDB();
             Statement s = conn.createStatement();
-            String sql = "INSERT INTO BRLDTABK01.M3_STORAGEEMAILSEND \n"
+            String sql = "INSERT INTO " + dbname + ".M3_STORAGEEMAILSEND \n"
                     + "(ECONO, EDIVISION, EDDOCUMENT, EDREFNO, ESENTTO, ESENTCC, ESENTFROM, EDSUBJECT, EDDETAIL, EDSTATUSNO, CREATEBY, SENTDATE, SENTTIME) \n"
                     + "SELECT USCOMP,CCDIVI,TRIM(USGROUP),USREQNO,USMAIL,'','ItCenter','" + remark + "','Send email successfully',USSTAT,'ItCenter'\n"
                     + ",CURRENT DATE AS current_day,CURRENT TIME AS current_time  FROM BRLDTABK01.USR_REQUEST\n"

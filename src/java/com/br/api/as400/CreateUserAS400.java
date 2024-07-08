@@ -32,18 +32,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.swing.JOptionPane;
 
+public class CreateUserAS400 {
 
-public class CreateUserAS400  {
-    
- 
-    public static void CREATE_USER_(String username, String password, String text) throws Exception {
+    public static void CREATE_USER(String username, String password, String text) throws Exception {
 
         String HOST = "192.200.9.190";
         String Uname = username;
         String Pword = password;
 
-        String Command = "CRTUSRPRF USRPRF(" + username + ") PASSWORD(" + password + ") TEXT(" + text + ") GRPPRF(BRDBUSR) ";
+//        String Command = "CRTUSRPRF USRPRF(" + username + ") PASSWORD(" + password + ") TEXT(" + text + ") GRPPRF(BRDBUSR) ";
+        String Command = "CRTUSRPRF USRPRF(" + username + ") PASSWORD(" + password + ") TEXT('" + text + "')"
+                + " GRPPRF(BRDBUSR) ";
+//        String Command2 = "CHGUSRPRF USRPRF(MAHAKI_CH2) TEXT(" + text + ")";
 //        String Command = "CHGUSRPRF USRPRF(SITTIS_SEE) TEXT('BRUSRPRF ICT System MGR')";
+//        if (Command.length() > 70) {
+//            Command = Command.substring(0, 70)  + Command.substring(69);
+//        }
         AS400 as400 = new AS400(HOST, "MVXSECOFR", "lawson@90");
         System.out.println("Connected !!");
 
@@ -69,14 +73,13 @@ public class CreateUserAS400  {
 
                 }
             }
-                   
+
         } catch (Exception e) {
             System.out.println(e.toString());
 
-        }  
+        }
     }
-    
-    
+
 //     public static void SetExpUser() throws IOException, PropertyVetoException {
 //
 //        try {
@@ -114,5 +117,4 @@ public class CreateUserAS400  {
 //            System.out.println(ex.toString());
 //        }
 //    }
-
 }
