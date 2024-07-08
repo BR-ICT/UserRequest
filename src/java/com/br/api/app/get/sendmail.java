@@ -186,7 +186,7 @@ public class sendmail extends HttpServlet {
                     try {
                         String text = costcenter5letter + "-" + fullname;
                         String password = "brl@" + CurrentYearStr;
-                        
+
                         if ("addon".equals(chkaddon)) {
                             CAS400.CREATE_USER(username, password, text);
                             UPDATEREQ(USREQNO, username);
@@ -459,7 +459,7 @@ public class sendmail extends HttpServlet {
             JSONObject mJsonObj = new JSONObject();
             Connection conn = ConnectDB2.ConnectionDB();
             Statement s = conn.createStatement();
-            String sql = "INSERT INTO BRLDTABK01.M3_STORAGEEMAILSEND \n"
+            String sql = "INSERT INTO " + dbname + ".M3_STORAGEEMAILSEND \n"
                     + "(ECONO, EDIVISION, EDDOCUMENT, EDREFNO, ESENTTO, ESENTCC, ESENTFROM, EDSUBJECT, EDDETAIL, EDSTATUSNO, CREATEBY, SENTDATE, SENTTIME) \n"
                     + "SELECT USCOMP,CCDIVI,TRIM(USGROUP),USREQNO,USMAIL,'','ItCenter','" + remark + "','Send email successfully',USSTAT,'ItCenter'\n"
                     + ",CURRENT DATE AS current_day,CURRENT TIME AS current_time  FROM BRLDTABK01.USR_REQUEST\n"
