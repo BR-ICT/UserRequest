@@ -80,8 +80,8 @@
                             <input  type="text" id="reqno" name="reqno" class="form-control text-center" readonly="true" style="font-weight: 500" value="">  
                         </div>
                         <div class="col-md-1">
-                        <lable for="line">Line</lable>
-                        <input type="text" id="line"  name="line" class="form-control text-center" readonly="true" value="" style="font-weight: 500">                     
+                            <lable for="line">Line</lable>
+                            <input type="text" id="line"  name="line" class="form-control text-center" readonly="true" value="" style="font-weight: 500">                     
                         </div>
                         <div class="offset-md-8 right" >                        
                             <a href="?page=RequestList">Back</a> 
@@ -138,7 +138,15 @@
                                 <input  type="text" class="form-control text-center" id="STN6L3"  name="STN6L3" maxlength="10" style="width: 150px;background-color: #FFFFFF;">                            
                             </label>
                         </div>
+                        <div class="col-md-3">
+                            <label id="lblcostcenter" class="form-row">Costcenter :&nbsp;
+                                <input  type="text" class="form-control text-center" id="costcenter"  name="costcenter" style="width: 100px;background-color: #FFFFFF;"  readonly="true">                            
+                            </label>
+                        </div>
                     </div>
+
+
+
                     <div class="row show-grid" style="padding-top: 13px;">
                         <div class="col-md-4">
                             <label for="disabledSelect"style="font-weight: bold;">User group : &nbsp;</label>
@@ -164,11 +172,12 @@
                                     <option value="Requester">Requester</option>
                                     <option value="Approval">Approval</option>
                                 </select>
-                                <input type="text" class="form-control" id="creuser" name="creuser"  value="no" maxlength="60" style="width: 230px; ;">
+
                             </label>
+
                         </div>
                     </div>
-
+                    <input type="text" class="form-control" id="creuser" name="creuser"  value="no" maxlength="60" style="width: 230px;" hidden="">   
                     <div class="row show-grid">
                         <div class="col-md-4">
                             <label for="disabledSelect" style="color:white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -367,12 +376,12 @@
 
     var showDetailsDialog1 = function (dialogType, client) {
         document.getElementById("detailform").hidden = false;
-        
+
         $("#jsGrid1").hide();
         var input = "" + client.USTYPE;
-         console.log("test");
+        console.log("test");
         var fields = input.split(',');
-        
+
         var Like = client.USLIKE;
 //         console.log(Like);
         var AddFunc = client.USAFUNC;
@@ -382,7 +391,7 @@
         var App = client.USAPP;
         var Groupapp = client.USGROUPAPP;
         var Role = client.USROLE;
-       
+//COSTCENTER
         document.getElementById("Like").value = Like;
         document.getElementById("AddFun").value = AddFunc;
         document.getElementById("DelFun").value = DelFunc;
@@ -391,6 +400,7 @@
         $("#line").val(client.USLINE);
         $("#Remark").val(client.USREMK);
         $("#empcode").val(client.USCODE);
+        $("#costcenter").val(client.COSTCENTER);
         document.getElementById("name").value = client.USNAME1;
         document.getElementById("lastname").value = client.USNAME2;
         document.getElementById("email").value = client.USMAIL;
@@ -410,6 +420,10 @@
         } else if (client.USGROUP === "AddOnM3") {
             document.getElementById("AddOnM3").checked = true;
             document.getElementById("creuser").value = "addon";
+            var currentYear = new Date().getFullYear();
+            var username = client.STN6L3;
+            var Remark = "Username:" + username + " Password:brl@" + currentYear;
+            $("#Remark").val(Remark);
         } else if (client.USGROUP === "EPR") {
             document.getElementById("EPR").checked = true;
             document.getElementById("lbllike").hidden = true;
@@ -1062,7 +1076,8 @@
 //            alert("CREATE USER AS400");
             if (radioValue === "AddOnM3") {
                 console.log("xxxxxxxxxxx");
-                document.getElementById("creuser").value = "addon";
+//                document.getElementById("creuser").value = "addon";
+//                $("#creuser").val("addon");
                 var USREQ = "<%out.print(session.getAttribute("namereq"));%>";
                 $.ajax({
                     url: './Sync',
@@ -1104,7 +1119,7 @@
     function  back() {
         location.reload(0);
     }
-
+//$("#creuser").hide();
 
 </script>
 

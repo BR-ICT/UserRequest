@@ -761,7 +761,7 @@ public class SelectDB2 {
                         + " USMAIL, USCOSTC, USGROUP, USTYPE, USLIKE,"
                         + " USAFUNC, USDFUNC,  USREQDT, USCODE, USREMK, TRIM(SUBSTRING(USNAME1,1,6)) || '_' || TRIM(SUBSTRING(USNAME2,1,3)) AS USERNAME,USEMCRE\n"
                         + ",SUBSTRING(USREQDT,1,4) || '-' || SUBSTRING(USREQDT,5,2) || '-' || SUBSTRING(USREQDT,7,2) AS DATE,ST_N6L3,USUREQ\n"
-                        + ",COALESCE(trim(USAPP),'') as USAPP,COALESCE(trim(USGROUPAPP),'') as USGROUPAPP,COALESCE(trim(USROLE),'') as USROLE\n"
+                        + ",COALESCE(trim(USAPP),'') as USAPP,COALESCE(trim(USGROUPAPP),'') as USGROUPAPP,COALESCE(trim(USROLE),'') as USROLE,ST_COSTC\n"
                         + "FROM " + dbname + ".USR_REQUEST," + dbname + ".STAFFLIST\n"
                         + "WHERE USSTAT = '10'\n"
                         + "AND USCODE = ST_CODE\n"
@@ -794,6 +794,7 @@ public class SelectDB2 {
                     mMap.put("USAPP", mRes.getString(20).trim());
                     mMap.put("USGROUPAPP", mRes.getString(21).trim());
                     mMap.put("USROLE", mRes.getString(22).trim());
+                     mMap.put("COSTCENTER", mRes.getString(23).trim());
                     mJSonArr.put(mMap);
 
                 }
