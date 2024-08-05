@@ -89,7 +89,9 @@
                         <!--</div>-->
                          <div class="row container col-md-12" style="font-size: 13px; width: 280px;">
                             <div style="width: 140px;">
-                                <a href="http://192.200.9.189:8080/UserRequest/?Destination=PResetPW"><li style="color: blue;"><u>Reset Password</u></li></a>  
+                                <!--<a href="http://192.200.9.189:8080/UserRequest/?Destination=ResetPW"><li style="color: blue;"><u>Reset Password</u></li></a>-->  
+                                <!--<a href="http://localhost:8080/UserRequest/?Destination=PResetPW"><li style="color: blue;"><u>Reset Password</u></li></a>-->  
+                                <a href="http://localhost:8080/UserRequest/?Destination=ChangePW"><li style="color: blue;"><u>Reset Password</u></li></a>  
                             </div>  
                         </div>
                         <div class="row container col-md-12" style="font-size: 13px; width: 280px;">

@@ -33,13 +33,16 @@
             if (session.getAttribute("Destination") != null) {
                 if (session.getAttribute("Destination").equals("ChangePW")) {
                     System.out.println("foo1");
-                    session.setAttribute("namereq", "M3SRVICT");
-                    response.sendRedirect("./?page=./ChangePW");
+//                    session.setAttribute("namereq", "M3SRVICT");
+//                    response.sendRedirect("./?page=./ChangePW");
+
+                    response.sendRedirect("http://192.200.9.189:8080/UserRequest/login.jsp");
                 } else if (session.getAttribute("Destination").equals("RequestUser")) {
                     System.out.println("foo2");
-                    session.setAttribute("namereq", "M3SRVICT");
+//                    session.setAttribute("namereq", "M3SRVICT");
 
-                    response.sendRedirect("./?page=./RequestUser");
+//                    response.sendRedirect("./?page=./RequestUser");
+                    response.sendRedirect("http://192.200.9.189:8080/UserRequest/login.jsp");
                 } else if (session.getAttribute("Destination").equals("ResetPW")) {
                     System.out.println("foo3");
                     session.setAttribute("namereq", "M3SRVICT");
