@@ -26,7 +26,7 @@
                         </div> 
         &nbsp;              
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="btn btn-lg btn-danger shadow" id="SendVerifyMail" name="SendVerifyMail"   value="SendVerifyMail"  >Reset password</button>
+                            <button type="submit" class="btn btn-lg btn-danger shadow" id="SendVerifyMail" name="SendVerifyMail"   value="SendVerifyMail">Reset password</button>
 
                         </div><br>
                         <br> 

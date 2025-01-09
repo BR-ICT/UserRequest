@@ -513,8 +513,8 @@ public class SelectDB2 {
                 Statement stmt = conn.createStatement();
                 String query = "SELECT DISTINCT TRIM(S2AITM) AS S2AITM, TRIM(S2TX15) AS COSTCENTER \n"
                         + "FROM M3FDBPRD.FSTLIN a, M3FDBPRD.FCHACC b \n"
-                        + "WHERE S2CONO = '10' \n"
-                        + "AND S2DIVI = '101' \n"
+                        + "WHERE S2CONO = '" + cono + "' \n"
+                        //                        + "AND S2DIVI = '101' \n"
                         + "AND S2SLVL = '1' \n"
                         + "AND b.EACONO = a.S2CONO \n"
                         + "AND b.EADIVI = a.S2DIVI \n"
@@ -794,7 +794,7 @@ public class SelectDB2 {
                     mMap.put("USAPP", mRes.getString(20).trim());
                     mMap.put("USGROUPAPP", mRes.getString(21).trim());
                     mMap.put("USROLE", mRes.getString(22).trim());
-                     mMap.put("COSTCENTER", mRes.getString(23).trim());
+                    mMap.put("COSTCENTER", mRes.getString(23).trim());
                     mJSonArr.put(mMap);
 
                 }

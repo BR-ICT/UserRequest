@@ -85,7 +85,13 @@ public class UploadStaff extends HttpServlet {
             String ST_M3 = request.getParameter("ST_M3").toUpperCase().trim();
 
             String ST_N6L3 = "";
-            ST_N6L3 = ENAME.substring(0, 6).toUpperCase() + "_" + ELNAME.substring(0, 3).toUpperCase();
+            if (ENAME.length() < 6) {
+                ST_N6L3 = ENAME.trim().toUpperCase() + "_" + ELNAME.substring(0, 3).toUpperCase();
+            } else {
+                ST_N6L3 = ENAME.substring(0, 6).toUpperCase() + "_" + ELNAME.substring(0, 3).toUpperCase();
+            }
+
+//            ST_N6L3 = ENAME.substring(0, 6).toUpperCase() + "_" + ELNAME.substring(0, 3).toUpperCase();
             InputStream inputStream = null; // input stream of the upload file
             Part filePart = request.getPart("ST_SIGN");
             Connection conn = null;
@@ -211,7 +217,7 @@ public class UploadStaff extends HttpServlet {
                 if (!imageStr.equals("")) {
                     try (
                              BlobGen lob = new BlobGen(conn);  PreparedStatement stmt = conn.prepareStatement(
-                                    "UPDATE "+dbname+".STAFFLIST \n"
+                                    "UPDATE " + dbname + ".STAFFLIST \n"
                                     + "SET ST_CONO = ?, ST_N6L3= ?, ST_EMAIL=?, ST_COSTC=?,"
                                     + "ST_EPNM=?, ST_ENAME=?, ST_ELNAME=?, ST_TPNM=?, ST_TNAME=?,"
                                     + "ST_TLNAME=?, ST_POSITON=?, ST_LEVEL=?, ST_DISM3=?, ST_DISMAIL=?, "
@@ -248,7 +254,7 @@ public class UploadStaff extends HttpServlet {
                 } else {
                     try (
                              BlobGen lob = new BlobGen(conn);  PreparedStatement stmt = conn.prepareStatement(
-                                    "UPDATE "+dbname+".STAFFLIST \n"
+                                    "UPDATE " + dbname + ".STAFFLIST \n"
                                     + "SET ST_CONO = ?, ST_N6L3= ?, ST_EMAIL=?, ST_COSTC=?,"
                                     + "ST_EPNM=?, ST_ENAME=?, ST_ELNAME=?, ST_TPNM=?, ST_TNAME=?,"
                                     + "ST_TLNAME=?, ST_POSITON=?, ST_LEVEL=?, ST_DISM3=?, ST_DISMAIL=?, "
@@ -321,7 +327,7 @@ public class UploadStaff extends HttpServlet {
             PrintWriter wt = response.getWriter();
             Connection conn = ConnectDB2.ConnectionDB();
             Statement state = conn.createStatement();
-            ResultSet rs = state.executeQuery("SELECT * FROM "+dbname+".STAFFLIST where ST_N6L3 = 'JILASA_SAM'");
+            ResultSet rs = state.executeQuery("SELECT * FROM " + dbname + ".STAFFLIST where ST_N6L3 = 'JILASA_SAM'");
             while (rs.next()) {
                 wt.println("<html><img src='data:image/png;base64," + rs.getString("ST_SIGN") + "'></html>");
             }
