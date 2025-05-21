@@ -81,13 +81,13 @@
                         </div>
                         <div class="col-md-12">
                             <label class="col-sm-5 text-right">New Password :</label>                   
-                            <input maxlength="20" type="password" name="txtNewPassword" id="txtNewPassword" value="" minlength="8">
+                            <input maxlength="10" type="password" name="txtNewPassword" id="txtNewPassword" value="" minlength="8" >
                             <i class="far fa-eye" id="togglePassword2" style="margin-left: -30px;cursor: pointer" onclick="togglePassword('txtNewPassword', 'togglePassword2')"></i>
                             <!--<label class="col-sm-5 " style="font-size: 13px;color: red;font-weight: bold;width: 300px;">*ตัวอักษรผสมตัวเลข ขั้นต่ำ 8 ตัว</label>-->       
                         </div>
                         <div class="col-md-12">
                             <label class="col-sm-5 text-right">Confirm New Password :</label>                   
-                            <input maxlength="20" type="password" name="txtConfirmPassword" id="txtConfirmPassword" value="" minlength="8">
+                            <input maxlength="10" type="password" name="txtConfirmPassword" id="txtConfirmPassword" value="" minlength="8">
                             <i class="far fa-eye" id="togglePassword3" style="margin-left: -30px;cursor: pointer" onclick="togglePassword('txtConfirmPassword', 'togglePassword3')"></i>
                             <!--<label class="col-sm-5 " style="font-size: 13px;color: red;font-weight: bold;width: 300px;">*ห้าม อักษรซ้ำ/ตัวเลขซ้ำ ติดกัน (เช่น AA,99)</label>-->       
                         </div> 
