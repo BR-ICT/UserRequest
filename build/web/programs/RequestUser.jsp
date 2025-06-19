@@ -710,7 +710,7 @@
             if (selectline === false) {
                 document.getElementById("AddFun").value = "";
             }
-            
+
             document.getElementById("AddFun").disabled = true;
             console.log("not case1 func");
 
@@ -723,7 +723,7 @@
             if (selectline === false) {
                 document.getElementById("DelFun").value = "";
             }
-           
+
             document.getElementById("DelFun").disabled = true;
             console.log("case1 for not DelFun");
         }
@@ -977,6 +977,7 @@
             }
         },
         submitHandler: function () {
+            event.preventDefault();
             var found = "0";
             var reqno = document.getElementById("reqno").value;
             var line = document.getElementById("line").value;
@@ -987,7 +988,28 @@
             $.each($("input[name='checkboxinline']:checked"), function () {
                 type.push($(this).val());
             });
-
+            var empcode1 = $("#empcode").val();
+            var checkusercreaterequest = "0";
+            let preventSubmit = false;
+            $.ajax({
+                url: './Sync',
+                type: 'GET',
+                dataType: 'text',
+                data: {
+                    page: "CheckRequestCreatedByUser",
+                    USCOMP: $("#vCompany").val(),
+                    Empcode: empcode1
+                },
+                async: false
+            }).done(function (response) {
+                console.log(response);
+                if (USREQ === response) {
+                    alert("You cannot created request for yourself,Please request by user's head.");
+                     preventSubmit = true; // set guard flag
+                    return false;
+                }
+            });
+            if (preventSubmit) return false;
             if (reqno === "") {
                 $.ajax({
                     url: './Sync',
@@ -1160,16 +1182,20 @@
 //            }
             if (found !== "0") {
                 alert("role already assigned");
+                 preventSubmit = true; // set guard flag
                 return false;
             } else
             if (count !== "0") {
                 alert("Duplicate detail !!");
+                 preventSubmit = true; // set guard flag
                 return false;
             } else if ((CheckUserM3 !== "0" && Inserttype === "New")) {
                 alert("Can not request. You already have request in company " + $("#vCompany option:selected").text());
+                 preventSubmit = true; // set guard flag
                 return false;
             } else if ((USREQ === "M3SRVICT" && radioValue === "M3INFO")) {
                 alert("Can not request. Please request by user's head.");
+                 preventSubmit = true; // set guard flag
                 return false;
             } else {
 
@@ -1201,6 +1227,7 @@
                 }).done(function (response) {
 
                 });
+                       if (preventSubmit) return false;
 //
 //
 //                var fullPath = document.getElementById('File').value;

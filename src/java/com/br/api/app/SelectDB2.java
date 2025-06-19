@@ -1327,6 +1327,48 @@ public class SelectDB2 {
 
     }
 
+    public static String CheckRequestCreatedByUser(String cono, String USER) throws Exception {
+
+        JSONArray mJSonArr = new JSONArray();
+        Connection conn = ConnectDB2.ConnectionDB();
+        String response = "";
+        try {
+            if (conn != null) {
+
+                Statement stmt = conn.createStatement();
+                String query = "SELECT ST_N6L3 FROM " + dbname + ".STAFFLIST s \n"
+                        + "WHERE ST_CODE = '" + USER + "'\n"
+                        + "AND s.ST_CONO = " + cono;
+                System.out.println(query);
+                ResultSet mRes = stmt.executeQuery(query);
+
+                while (mRes.next()) {
+                    response =  mRes.getString(1);
+
+                }
+
+            } else {
+                System.out.println("Server can't connect.");
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (conn != null) {
+                conn.close();
+            }
+            throw e;
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return response;
+
+    }
+
     public static JSONArray EmpCodeList() throws Exception {
 
         JSONArray mJSonArr = new JSONArray();
