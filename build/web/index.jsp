@@ -27,7 +27,8 @@
         session.setAttribute("webpage", webpage);
 
         String pageParam = request.getParameter("page");
-        boolean isResetPwPage = pageParam != null && (pageParam.equals("/ResetPW") || pageParam.equals("ResetPW"));
+        String normalizedPageParam = pageParam == null ? null : pageParam.replaceFirst("^\\.?/", "");
+        boolean isResetPwPage = "ResetPW".equals(normalizedPageParam);
 
         // The ResetPW bypass below signs in as the anonymous M3SRVICT session
         // only so that page can render. That session must not count as a real
