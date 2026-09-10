@@ -26,11 +26,26 @@
         String webpage = request.getParameter("webpage");
         session.setAttribute("webpage", webpage);
 
+        String pageParam = request.getParameter("page");
+        boolean isResetPwPage = pageParam != null && (pageParam.equals("/ResetPW") || pageParam.equals("ResetPW"));
+
+        // The ResetPW bypass below signs in as the anonymous M3SRVICT session
+        // only so that page can render. That session must not count as a real
+        // login anywhere else in the app - force it back to login.jsp there.
+        if (session.getAttribute("resetPwAnon") != null && !isResetPwPage) {
+            session.removeAttribute("namereq");
+            session.removeAttribute("resetPwAnon");
+        }
+
         if (session.getAttribute("namereq") == null) {
 
             System.out.println("foonull");
 
-            if (session.getAttribute("Destination") != null) {
+            if (isResetPwPage) {
+                System.out.println("foo0");
+                session.setAttribute("namereq", "M3SRVICT");
+                session.setAttribute("resetPwAnon", "true");
+            } else if (session.getAttribute("Destination") != null) {
                 if (session.getAttribute("Destination").equals("ChangePW")) {
                     System.out.println("foo1");
 //                    session.setAttribute("namereq", "M3SRVICT");
