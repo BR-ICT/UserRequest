@@ -273,12 +273,18 @@
                     <!--<li style="float: right;" id="tabmenu2"><a href="?page=TrackStatus"><h5>Monitoring</h5></a></li>--> 
                     <!--<li style="float: right;" id="tabmenu3"><a href="?page=Listrequest"><h5>List request</h5></a></li>-->   
                     <!--<li style="float: right;" id="tabmenu4" ><a href="?page=RequestUser"><h5>New request</h5></a></li>--> 
-                    <div class="dropdown2" style="float: right;" id="tabmenu1" >
-                        <button class="dropbtn" ><h5>Request <i class="fa fa-caret-down"></i> </h5> 
-
+                    <div class="dropdown2" style="float: right;" id="tabmenu1">
+                        <button class="dropbtn">
+                            <h5>Request <i class="fa fa-caret-down"></i></h5>
                         </button>
+                        <!--<a href="?page=RequestUser">New request</a>-->
                         <div class="dropdown2-content">
-                            <a href="?page=RequestUser">New request</a>
+                            <a href="https://workflow.br-bangkokranch.com/servicerequest/user/create"
+                               onclick="return confirmNewRequest(event);">
+                                New request
+                            </a>
+
+
                             <a href="?page=Listrequest">List request</a>
                         </div>
                     </div>
@@ -295,12 +301,12 @@
 
 <script type="text/javascript">
 
-
-    <% if (request.getParameter("page") != null) {%>
-    $("#vSection").load("./programs/<%=request.getParameter("page").toString()%>.jsp");
-    <%  } else {  %>
-    $("#vSection").load("./programs/RequestUser.jsp");
-    <% }%>
+//
+//    <% if (request.getParameter("page") != null) {%>
+//    $("#vSection").load("./programs/<%=request.getParameter("page").toString()%>.jsp");
+//    <%  } else {  %>
+//    $("#vSection").load("./programs/RequestUser.jsp");
+//    <% }%>
 
 
     $('.dropdown-item').on('click', function () {
@@ -363,6 +369,16 @@
 
     function Myfunction1() {
         $('#Logout').click();
+    }
+
+    function confirmNewRequest(event) {
+        event.preventDefault();
+
+        alert("User Request ย้ายไปที่ Service Request --> Request Form --> User \n \n กดปุ่ม OK เพื่อไปที่เว็ปไซต์ Service Request");
+
+        window.location.href = "https://workflow.br-bangkokranch.com/servicerequest/user/create";
+
+        return false;
     }
 </script>
 
