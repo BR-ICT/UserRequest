@@ -301,12 +301,12 @@
 
 <script type="text/javascript">
 
-//
-//    <% if (request.getParameter("page") != null) {%>
-//    $("#vSection").load("./programs/<%=request.getParameter("page").toString()%>.jsp");
-//    <%  } else {  %>
-//    $("#vSection").load("./programs/RequestUser.jsp");
-//    <% }%>
+
+<% if (request.getParameter("page") != null) { %>
+    $("#vSection").load("./programs/<%=request.getParameter("page").toString()%>.jsp");
+<% } else { %>
+    <%-- $("#vSection").load("./programs/TrackStatus.jsp"); --%>
+<% } %>
 
 
     $('.dropdown-item').on('click', function () {
