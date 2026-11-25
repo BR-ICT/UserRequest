@@ -250,6 +250,14 @@ public class Sync extends HttpServlet {
                 } catch (JSONException ex) {
                     Logger.getLogger(Sync.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if (request.getParameter("page").equals("CheckRequestCreatedByUser")) {
+                try {
+                    out.print(SelectDB2.CheckRequestCreatedByUser(request.getParameter("USCOMP"),
+                            request.getParameter("Empcode")));
+                    out.flush();
+                } catch (JSONException ex) {
+                    Logger.getLogger(Sync.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (request.getParameter("page").equals("CheckUserM3")) {
                 try {
                     System.out.println("CheckUserM3");

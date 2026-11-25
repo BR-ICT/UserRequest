@@ -513,8 +513,8 @@ public class SelectDB2 {
                 Statement stmt = conn.createStatement();
                 String query = "SELECT DISTINCT TRIM(S2AITM) AS S2AITM, TRIM(S2TX15) AS COSTCENTER \n"
                         + "FROM M3FDBPRD.FSTLIN a, M3FDBPRD.FCHACC b \n"
-                        + "WHERE S2CONO = '10' \n"
-                        + "AND S2DIVI = '101' \n"
+                        + "WHERE S2CONO = '" + cono + "' \n"
+                        //                        + "AND S2DIVI = '101' \n"
                         + "AND S2SLVL = '1' \n"
                         + "AND b.EACONO = a.S2CONO \n"
                         + "AND b.EADIVI = a.S2DIVI \n"
@@ -794,7 +794,7 @@ public class SelectDB2 {
                     mMap.put("USAPP", mRes.getString(20).trim());
                     mMap.put("USGROUPAPP", mRes.getString(21).trim());
                     mMap.put("USROLE", mRes.getString(22).trim());
-                     mMap.put("COSTCENTER", mRes.getString(23).trim());
+                    mMap.put("COSTCENTER", mRes.getString(23).trim());
                     mJSonArr.put(mMap);
 
                 }
@@ -1324,6 +1324,48 @@ public class SelectDB2 {
         }
 
         return mJSonArr;
+
+    }
+
+    public static String CheckRequestCreatedByUser(String cono, String USER) throws Exception {
+
+        JSONArray mJSonArr = new JSONArray();
+        Connection conn = ConnectDB2.ConnectionDB();
+        String response = "";
+        try {
+            if (conn != null) {
+
+                Statement stmt = conn.createStatement();
+                String query = "SELECT ST_N6L3 FROM " + dbname + ".STAFFLIST s \n"
+                        + "WHERE ST_CODE = '" + USER + "'\n"
+                        + "AND s.ST_CONO = " + cono;
+                System.out.println(query);
+                ResultSet mRes = stmt.executeQuery(query);
+
+                while (mRes.next()) {
+                    response =  mRes.getString(1);
+
+                }
+
+            } else {
+                System.out.println("Server can't connect.");
+            }
+
+        } catch (SQLException sqle) {
+            throw sqle;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (conn != null) {
+                conn.close();
+            }
+            throw e;
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return response;
 
     }
 

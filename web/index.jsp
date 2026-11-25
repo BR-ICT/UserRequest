@@ -26,20 +26,39 @@
         String webpage = request.getParameter("webpage");
         session.setAttribute("webpage", webpage);
 
+        String pageParam = request.getParameter("page");
+        String normalizedPageParam = pageParam == null ? null : pageParam.replaceFirst("^\\.?/", "");
+        boolean isResetPwPage = "ResetPW".equals(normalizedPageParam);
+
+        // The ResetPW bypass below signs in as the anonymous M3SRVICT session
+        // only so that page can render. That session must not count as a real
+        // login anywhere else in the app - force it back to login.jsp there.
+        if (session.getAttribute("resetPwAnon") != null && !isResetPwPage) {
+            session.removeAttribute("namereq");
+            session.removeAttribute("resetPwAnon");
+        }
+
         if (session.getAttribute("namereq") == null) {
 
             System.out.println("foonull");
 
-            if (session.getAttribute("Destination") != null) {
+            if (isResetPwPage) {
+                System.out.println("foo0");
+                session.setAttribute("namereq", "M3SRVICT");
+                session.setAttribute("resetPwAnon", "true");
+            } else if (session.getAttribute("Destination") != null) {
                 if (session.getAttribute("Destination").equals("ChangePW")) {
                     System.out.println("foo1");
-                    session.setAttribute("namereq", "M3SRVICT");
-                    response.sendRedirect("./?page=./ChangePW");
+//                    session.setAttribute("namereq", "M3SRVICT");
+//                    response.sendRedirect("./?page=./ChangePW");
+
+                    response.sendRedirect("http://192.200.9.189:8080/UserRequest/login.jsp");
                 } else if (session.getAttribute("Destination").equals("RequestUser")) {
                     System.out.println("foo2");
-                    session.setAttribute("namereq", "M3SRVICT");
+//                    session.setAttribute("namereq", "M3SRVICT");
 
-                    response.sendRedirect("./?page=./RequestUser");
+//                    response.sendRedirect("./?page=./RequestUser");
+                    response.sendRedirect("http://192.200.9.189:8080/UserRequest/login.jsp");
                 } else if (session.getAttribute("Destination").equals("ResetPW")) {
                     System.out.println("foo3");
                     session.setAttribute("namereq", "M3SRVICT");
@@ -254,12 +273,18 @@
                     <!--<li style="float: right;" id="tabmenu2"><a href="?page=TrackStatus"><h5>Monitoring</h5></a></li>--> 
                     <!--<li style="float: right;" id="tabmenu3"><a href="?page=Listrequest"><h5>List request</h5></a></li>-->   
                     <!--<li style="float: right;" id="tabmenu4" ><a href="?page=RequestUser"><h5>New request</h5></a></li>--> 
-                    <div class="dropdown2" style="float: right;" id="tabmenu1" >
-                        <button class="dropbtn" ><h5>Request <i class="fa fa-caret-down"></i> </h5> 
-
+                    <div class="dropdown2" style="float: right;" id="tabmenu1">
+                        <button class="dropbtn">
+                            <h5>Request <i class="fa fa-caret-down"></i></h5>
                         </button>
+                        <!--<a href="?page=RequestUser">New request</a>-->
                         <div class="dropdown2-content">
-                            <a href="?page=RequestUser">New request</a>
+                            <a href="https://workflow.br-bangkokranch.com/servicerequest/user/create"
+                               onclick="return confirmNewRequest(event);">
+                                New request
+                            </a>
+
+
                             <a href="?page=Listrequest">List request</a>
                         </div>
                     </div>
@@ -277,11 +302,11 @@
 <script type="text/javascript">
 
 
-    <% if (request.getParameter("page") != null) {%>
+<% if (request.getParameter("page") != null) { %>
     $("#vSection").load("./programs/<%=request.getParameter("page").toString()%>.jsp");
-    <%  } else {  %>
-    $("#vSection").load("./programs/RequestUser.jsp");
-    <% }%>
+<% } else { %>
+    <%-- $("#vSection").load("./programs/TrackStatus.jsp"); --%>
+<% } %>
 
 
     $('.dropdown-item').on('click', function () {
@@ -344,6 +369,16 @@
 
     function Myfunction1() {
         $('#Logout').click();
+    }
+
+    function confirmNewRequest(event) {
+        event.preventDefault();
+
+        alert("User Request ย้ายไปที่ Service Request --> Request Form --> User \n \n กดปุ่ม OK เพื่อไปที่เว็ปไซต์ Service Request");
+
+        window.location.href = "https://workflow.br-bangkokranch.com/servicerequest/user/create";
+
+        return false;
     }
 </script>
 

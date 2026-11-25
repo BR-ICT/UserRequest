@@ -188,7 +188,7 @@ public class sendmail extends HttpServlet {
                         String password = "brl@" + CurrentYearStr;
 
                         if ("addon".equals(chkaddon)) {
-                            CAS400.CREATE_USER(username, password, text);
+                            CAS400.CREATE_USER(username, password, ST_CODE);
                             UPDATEREQ(USREQNO, username);
                             UPDATESTFLST(ST_CODE, username);
                         }
@@ -374,7 +374,19 @@ public class sendmail extends HttpServlet {
 
     }
 
+    // Disabled 2026-11-25 (APPCTL V2, userrequest_api md/APPCTL1_STANDARD_PLAN.md section 12): this wrote
+    // CTL_GRP = the department of the app (CTL3_GRP) and CTL_REM = role, which is wrong for a V2 app
+    // (Group -> Role, the token role is CTL_GRP). Rights are granted in User Authorize (servicerequest)
+    // and the USRQ request (User New / Update) now; this JSP is being retired.
+    private static final boolean UPDATE_ROLE_ENABLED = false;
+
     private static void updateRole(String USREQNO, String bywhat) {
+
+        if (!UPDATE_ROLE_ENABLED) {
+            System.out.println("updateRole disabled (APPCTL V2): request " + USREQNO + " " + bywhat
+                    + " not written to APPCTL1, grant it in User Authorize");
+            return;
+        }
 
         try {
 

@@ -398,7 +398,7 @@
         document.getElementById("req_by").value = client.USUREQ;
         $("#reqno").val(client.USREQNO);
         $("#line").val(client.USLINE);
-        $("#Remark").val(client.USREMK);
+        $("#Remark").val(client.USERNAME);
         $("#empcode").val(client.USCODE);
         $("#costcenter").val(client.COSTCENTER);
         document.getElementById("name").value = client.USNAME1;
@@ -410,7 +410,7 @@
         $("#TYPEGROUP :input").prop("disabled", true);
         $("#fordisable :input").prop("disabled", true);
 //        $("#vCompany").val(client.USCOMP);
-        $("#STN6L3").val(client.STN6L3);
+        $("#STN6L3").val(client.USERNAME);
         $('input[name="checkboxinline"]').each(function () {
             this.checked = false;
         });
@@ -421,7 +421,7 @@
             document.getElementById("AddOnM3").checked = true;
             document.getElementById("creuser").value = "addon";
             var currentYear = new Date().getFullYear();
-            var username = client.STN6L3;
+            var username = client.USERNAME;
             var Remark = "Username:" + username + " Password:brl@" + currentYear;
             $("#Remark").val(Remark);
         } else if (client.USGROUP === "EPR") {
